@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Browse Star Wars films, people, planets and vehicles fetched live from the Star Wars API."
+    />
+    <title>Star Wars Data Explorer</title>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+
+  <body class="page">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <p class="site-header__title">
+          <a class="site-header__title-link" href="index.html">Star Wars Data Explorer</a>
+        </p>
+
+        <nav class="site-nav" aria-label="Main navigation">
+          <ul class="site-nav__list">
+            <li>
+              <a class="site-nav__link site-nav__link--current" href="index.html" aria-current="page">Home</a>
+            </li>
+            <li><a class="site-nav__link" href="films.html">Films</a></li>
+            <li><a class="site-nav__link" href="people.html">People</a></li>
+            <li><a class="site-nav__link" href="planets.html">Planets</a></li>
+            <li><a class="site-nav__link" href="vehicles.html">Vehicles</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page__main" id="main-content">
+      <div class="intro">
+        <h1>Explore the Star Wars universe</h1>
+        <p class="intro__lead">
+          This site fetches data live from the Star Wars API. Choose one of the four categories
+          below to see the records for that category.
+        </p>
+      </div>
+
+      <h2 class="visually-hidden">Categories</h2>
+
+      <ul class="category-grid">
+        <li>
+          <a class="category-card" href="films.html">
+            <h3 class="category-card__title">Films</h3>
+            <p class="category-card__description">
+              Release details and credits for the Star Wars films.
+            </p>
+          </a>
+        </li>
+        <li>
+          <a class="category-card" href="people.html">
+            <h3 class="category-card__title">People</h3>
+            <p class="category-card__description">
+              Height, mass and other details about the characters.
+            </p>
+          </a>
+        </li>
+        <li>
+          <a class="category-card" href="planets.html">
+            <h3 class="category-card__title">Planets</h3>
+            <p class="category-card__description">
+              Climate, terrain and population of the known planets.
+            </p>
+          </a>
+        </li>
+        <li>
+          <a class="category-card" href="vehicles.html">
+            <h3 class="category-card__title">Vehicles</h3>
+            <p class="category-card__description">
+              Models, manufacturers and capacity of the vehicles.
+            </p>
+          </a>
+        </li>
+      </ul>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p>
+          Data from
+          <a href="https://swapi.py4e.com/documentation">SWAPI, the Star Wars API</a>. The
+          illustrations are drawn for this project, because SWAPI does not serve images.
+        </p>
+        <p>Assignment 1 &ndash; FFU1200 Production of Frontend Development.</p>
+      </div>
+    </footer>
+  </body>
+</html>

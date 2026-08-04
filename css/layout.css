@@ -1,0 +1,118 @@
+/* Layout layer: page shell, header, footer and the responsive grids. */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page__main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md);
+}
+
+/* Site header ------------------------------------------------------------ */
+
+.site-header {
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+}
+
+.site-header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  padding: var(--space-md);
+}
+
+.site-header__title {
+  margin: 0;
+  font-size: var(--font-size-title);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-header__title-link {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.site-header__title-link:hover {
+  color: var(--color-accent);
+}
+
+/* Main navigation -------------------------------------------------------- */
+
+.site-nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm) var(--space-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav__link {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+}
+
+.site-nav__link:hover {
+  background-color: var(--color-surface-raised);
+}
+
+.site-nav__link--current {
+  background-color: var(--color-surface-raised);
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+/* Grids ------------------------------------------------------------------ */
+
+/* Category grid on the front page. */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--space-lg);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Record grid on the four category pages. */
+.record-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: var(--space-lg);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Site footer ------------------------------------------------------------ */
+
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.site-footer__inner {
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-md);
+}
+
+.site-footer__inner p:last-child {
+  margin-bottom: 0;
+}

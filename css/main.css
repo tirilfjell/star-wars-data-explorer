@@ -1,0 +1,7 @@
+/* Single entry point for the stylesheet.
+   The partials are imported from the most generic to the most specific layer,
+   so that component rules can safely override the base defaults. */
+
+@import url("base.css");
+@import url("layout.css");
+@import url("components.css");
