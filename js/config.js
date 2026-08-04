@@ -33,7 +33,7 @@ export const categories = {
       { label: "Producer", key: "producer", format: formatText },
       { label: "Released", key: "release_date", format: formatDate },
       { label: "Characters", key: "characters", format: (value) => formatCount(value, "character") },
-      { label: "Opening", key: "opening_crawl", format: (value) => formatSummary(value) },
+      { label: "Opening", key: "opening_crawl", format: (value) => formatSummary(value, 110) },
     ],
   },
 
