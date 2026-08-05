@@ -20,6 +20,10 @@ import { createStatusMessage } from "./statusMessage.js";
 async function loadCategory(category, grid, status) {
   status.showLoading(category.label);
 
+  // Lets the stylesheet size the picture frame to the shape this category's
+  // pictures actually have (portrait posters, square planets, wide vehicles).
+  grid.classList.add(`record-grid--${category.key}`);
+
   try {
     const records = await fetchRecords(category.endpoint, RECORDS_PER_CATEGORY);
 
@@ -27,8 +31,8 @@ async function loadCategory(category, grid, status) {
     // updated once instead of on every single card.
     const fragment = document.createDocumentFragment();
 
-    records.forEach((record, index) => {
-      fragment.append(createRecordCard(record, category, index));
+    records.forEach((record) => {
+      fragment.append(createRecordCard(record, category));
     });
 
     grid.replaceChildren(fragment);

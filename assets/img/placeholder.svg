@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" role="img" aria-hidden="true">
+  <title>No picture available</title>
+  <rect width="640" height="640" fill="#182034" />
+  <circle cx="320" cy="286" r="92" fill="none" stroke="#6b7a9e" stroke-width="10" />
+  <path d="M320 240v62" stroke="#6b7a9e" stroke-width="12" stroke-linecap="round" />
+  <circle cx="320" cy="332" r="8" fill="#6b7a9e" />
+  <text x="320" y="452" fill="#b9c4d8" font-family="Helvetica Neue, Arial, sans-serif"
+        font-size="34" text-anchor="middle">No picture available</text>
+</svg>

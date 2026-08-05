@@ -25,8 +25,12 @@ export const categories = {
     description: "Release details and credits for the Star Wars films.",
     /** Property used as the card heading. */
     titleKey: "title",
-    /** Alternative text pattern for the generated artwork. */
-    imageAlt: (record) => `Illustration representing the film ${record.title}`,
+    /**
+     * Alternative text for the picture on the card. It names what the picture
+     * actually shows, so a screen reader user is told the same thing a sighted
+     * user sees rather than simply being given the record name again.
+     */
+    imageAlt: (record) => `Theatrical release poster for the film ${record.title}`,
     properties: [
       { label: "Episode", key: "episode_id", format: (value) => formatNumber(value) },
       { label: "Director", key: "director", format: formatText },
@@ -43,7 +47,7 @@ export const categories = {
     endpoint: "people",
     description: "Height, mass and other details about the characters.",
     titleKey: "name",
-    imageAlt: (record) => `Portrait illustration representing ${record.name}`,
+    imageAlt: (record) => `Portrait of the character ${record.name}`,
     properties: [
       { label: "Height", key: "height", format: (value) => formatNumber(value, "cm") },
       { label: "Mass", key: "mass", format: (value) => formatNumber(value, "kg") },
@@ -60,7 +64,7 @@ export const categories = {
     endpoint: "planets",
     description: "Climate, terrain and population of the known planets.",
     titleKey: "name",
-    imageAlt: (record) => `Illustration representing the planet ${record.name}`,
+    imageAlt: (record) => `View of the planet ${record.name} seen from space`,
     properties: [
       { label: "Climate", key: "climate", format: formatText },
       { label: "Terrain", key: "terrain", format: formatText },
@@ -77,7 +81,7 @@ export const categories = {
     endpoint: "vehicles",
     description: "Models, manufacturers and capacity of the vehicles.",
     titleKey: "name",
-    imageAlt: (record) => `Illustration representing the vehicle ${record.name}`,
+    imageAlt: (record) => `The ${record.name} vehicle shown from the side`,
     properties: [
       { label: "Model", key: "model", format: formatText },
       { label: "Manufacturer", key: "manufacturer", format: formatText },

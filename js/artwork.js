@@ -1,25 +1,71 @@
 /**
  * Artwork lookup.
  *
- * SWAPI is a data-only API and does not serve images, and the image host that
- * is usually paired with it (starwars-visualguide.com) now refuses requests.
- * Each category therefore ships with six locally stored SVG illustrations in
- * assets/img/, and a record is paired with one of them by its position in the
- * result list.
+ * SWAPI is a data-only API: its responses carry no image field, so the
+ * pictures have to come from elsewhere. The image host normally paired with
+ * SWAPI, starwars-visualguide.com, no longer serves images at all - the domain
+ * now redirects to an unrelated site - so it cannot be used.
+ *
+ * The pictures are instead taken from Wookieepedia, the Star Wars wiki, and
+ * stored locally in assets/img/. Serving them from the project rather than
+ * hotlinking the wiki keeps the page working if that host blocks external
+ * requests, and means the pictures still render without a network connection.
+ *
+ * A record is matched to its picture by name rather than by its position in
+ * the response, so the correct picture is shown even if the API ever returns
+ * the records in a different order.
  */
 
-/** Number of illustrations available per category. */
-const ARTWORK_PER_CATEGORY = 6;
+/** Picture file name for each record, grouped by category. */
+const ARTWORK = {
+  films: {
+    "A New Hope": "a-new-hope.webp",
+    "The Empire Strikes Back": "the-empire-strikes-back.webp",
+    "Return of the Jedi": "return-of-the-jedi.webp",
+    "The Phantom Menace": "the-phantom-menace.webp",
+    "Attack of the Clones": "attack-of-the-clones.webp",
+    "Revenge of the Sith": "revenge-of-the-sith.webp",
+  },
+  people: {
+    "Luke Skywalker": "luke-skywalker.webp",
+    "C-3PO": "c-3po.webp",
+    "R2-D2": "r2-d2.webp",
+    "Darth Vader": "darth-vader.webp",
+    "Leia Organa": "leia-organa.webp",
+    "Owen Lars": "owen-lars.webp",
+  },
+  planets: {
+    Tatooine: "tatooine.webp",
+    Alderaan: "alderaan.webp",
+    "Yavin IV": "yavin-4.webp",
+    Hoth: "hoth.webp",
+    Dagobah: "dagobah.webp",
+    Bespin: "bespin.webp",
+  },
+  vehicles: {
+    "Sand Crawler": "sand-crawler.webp",
+    "T-16 skyhopper": "t-16-skyhopper.webp",
+    "X-34 landspeeder": "x-34-landspeeder.webp",
+    "TIE/LN starfighter": "tie-ln-starfighter.webp",
+    Snowspeeder: "snowspeeder.webp",
+    "TIE bomber": "tie-bomber.webp",
+  },
+};
 
 /**
- * Builds the path to the illustration used for one record.
- * @param {string} categoryKey Category name, for example "vehicles".
- * @param {number} index Zero-based position of the record in the list.
- * @returns {string} Relative path to an SVG file.
+ * Used when a record has no picture of its own, so that a card is never left
+ * with a broken image.
  */
-export function getArtworkPath(categoryKey, index) {
-  // The modulo keeps the lookup inside the available range even if more
-  // records than illustrations are ever rendered.
-  const artworkNumber = (index % ARTWORK_PER_CATEGORY) + 1;
-  return `assets/img/${categoryKey}/${artworkNumber}.svg`;
+const PLACEHOLDER = "assets/img/placeholder.svg";
+
+/**
+ * Finds the picture for one record.
+ *
+ * @param {string} categoryKey Category name, for example "vehicles".
+ * @param {string} recordName Name or title of the record.
+ * @returns {string} Relative path to the picture for that record.
+ */
+export function getArtworkPath(categoryKey, recordName) {
+  const fileName = ARTWORK[categoryKey]?.[recordName];
+  return fileName ? `assets/img/${categoryKey}/${fileName}` : PLACEHOLDER;
 }

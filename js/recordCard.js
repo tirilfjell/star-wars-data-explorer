@@ -32,10 +32,11 @@ function createPropertyRow(property, record) {
  * Creates a complete list item holding one record card.
  * @param {object} record A record as returned by the API.
  * @param {object} category The category configuration for the record.
- * @param {number} index Zero-based position of the record in the list.
  * @returns {HTMLLIElement}
  */
-export function createRecordCard(record, category, index) {
+export function createRecordCard(record, category) {
+  const recordName = record[category.titleKey];
+
   const listItem = document.createElement("li");
   listItem.className = "record-grid__item";
 
@@ -44,20 +45,29 @@ export function createRecordCard(record, category, index) {
 
   const image = document.createElement("img");
   image.className = "record-card__image";
-  image.src = getArtworkPath(category.key, index);
+  image.src = getArtworkPath(category.key, recordName);
+  // The picture carries information the text does not, so it is given a
+  // descriptive alternative text rather than being hidden from screen readers.
   image.alt = category.imageAlt(record);
-  // The illustrations are decorative for layout purposes but still describe
-  // the record, so they keep a descriptive alternative text.
+  // Cards below the fold are only fetched once they are needed, and the
+  // intrinsic size lets the browser reserve the space in advance so the
+  // layout does not shift as the pictures arrive.
   image.loading = "lazy";
-  image.width = 400;
-  image.height = 300;
+  image.decoding = "async";
+  image.width = 640;
+  image.height = 640;
+  // A picture that fails to load would otherwise leave a broken icon; the
+  // card falls back to the neutral placeholder instead.
+  image.addEventListener("error", function handleMissingImage() {
+    image.src = "assets/img/placeholder.svg";
+  }, { once: true });
 
   const body = document.createElement("div");
   body.className = "record-card__body";
 
   const title = document.createElement("h2");
   title.className = "record-card__title";
-  title.textContent = record[category.titleKey];
+  title.textContent = recordName;
 
   const properties = document.createElement("dl");
   properties.className = "record-card__properties";
