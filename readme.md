@@ -9,8 +9,8 @@ six records with six properties and a picture each.
 
 ## Links
 
-- **GitHub repository:** _add the URL here after pushing the repository_
-- **Live version (Netlify):** _add the URL here after deploying_
+- **GitHub repository:** https://github.com/tirilfjell/star-wars-data-explorer
+- **Live version (Netlify):** https://star-wars-data-explorer-tirilfjell.netlify.app
 
 ## Features
 
