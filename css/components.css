@@ -3,22 +3,35 @@
 /* Intro block ------------------------------------------------------------ */
 
 .intro {
+  /* Caps the line length at roughly 70 characters, which keeps the text
+     comfortable to read on a wide screen. */
   max-width: 45rem;
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-lg);
 }
 
 .intro__lead {
   color: var(--color-text-muted);
-  font-size: 1.125rem;
+}
+
+@media (min-width: 48rem) {
+  .intro {
+    margin-bottom: var(--space-xl);
+  }
+
+  .intro__lead {
+    font-size: 1.125rem;
+  }
 }
 
 /* Category card (front page) --------------------------------------------- */
 
+/* The whole card is the link, which gives it a tap target far larger than the
+   minimum rather than asking the user to hit a short line of text. */
 .category-card {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: var(--space-lg);
+  padding: var(--space-md);
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -28,10 +41,18 @@
   transition: transform 150ms ease-in-out, border-color 150ms ease-in-out;
 }
 
+/* The lift is paired with a colour change, so the state is still obvious to
+   anyone who has asked the system to reduce motion. */
 .category-card:hover {
   transform: translateY(-0.25rem);
   border-color: var(--color-accent);
   color: var(--color-text);
+}
+
+@media (min-width: 48rem) {
+  .category-card {
+    padding: var(--space-lg);
+  }
 }
 
 .category-card__title {
@@ -58,15 +79,48 @@
   box-shadow: var(--shadow-card);
 }
 
+/* The pictures come from the wiki in a range of shapes: film posters are
+   tall, planets are square and vehicles are wide. `contain` fits each picture
+   inside the frame rather than cropping it, so a poster keeps its title and a
+   vehicle keeps its silhouette, and the darker panel behind fills whatever
+   space the picture does not cover.
+
+   Each category sets the frame to the shape its own pictures actually have,
+   which keeps that wasted space to a minimum. The ratio is set on the grid
+   rather than the card so every card in a category matches its neighbours. */
 .record-card__image {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+  aspect-ratio: var(--record-image-ratio, 4 / 3);
+  object-fit: contain;
+  background-color: var(--color-background);
   border-bottom: 1px solid var(--color-border);
 }
 
+.record-grid--films {
+  --record-image-ratio: 3 / 4;
+}
+
+.record-grid--people {
+  --record-image-ratio: 4 / 5;
+}
+
+.record-grid--planets {
+  --record-image-ratio: 1 / 1;
+}
+
+.record-grid--vehicles {
+  --record-image-ratio: 4 / 3;
+}
+
 .record-card__body {
-  padding: var(--space-lg);
+  /* Slightly tighter on mobile, where horizontal space is scarcest. */
+  padding: var(--space-md);
+}
+
+@media (min-width: 48rem) {
+  .record-card__body {
+    padding: var(--space-lg);
+  }
 }
 
 .record-card__title {
@@ -90,6 +144,23 @@
 
 .record-card__property-value {
   margin: 0;
+}
+
+/* On the narrowest screens a two column list leaves too little room for the
+   value, so the name sits above its value instead. The grid returns as soon
+   as there is room for it. */
+@media (max-width: 25rem) {
+  .record-card__properties {
+    display: block;
+  }
+
+  .record-card__property-name {
+    margin-top: var(--space-sm);
+  }
+
+  .record-card__property-name:first-child {
+    margin-top: 0;
+  }
 }
 
 /* Status message (loading and error states) ------------------------------ */
@@ -122,11 +193,16 @@
 
 /* Button ----------------------------------------------------------------- */
 
+/* Inline flex with a minimum height guarantees the button stays a comfortable
+   touch target even if its label is short. */
 .button {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap-target-min);
   padding: var(--space-sm) var(--space-lg);
   background-color: var(--color-accent);
-  color: #1a1205;
+  color: var(--color-on-accent);
   border: none;
   border-radius: var(--radius-md);
   font: inherit;
@@ -137,5 +213,13 @@
 
 .button:hover {
   background-color: var(--color-accent-strong);
-  color: #1a1205;
+  color: var(--color-on-accent);
+}
+
+/* Footer ----------------------------------------------------------------- */
+
+.site-footer__brand {
+  color: var(--color-text);
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }

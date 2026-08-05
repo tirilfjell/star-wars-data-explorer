@@ -56,17 +56,19 @@
         hidden
       ></div>
 
-      <ul class="record-grid" data-record-grid></ul>
+      <!-- Filled in by JavaScript once the data has been fetched. The list is
+           named so screen reader users hear what it contains. -->
+      <ul class="record-grid" aria-label="Star Wars planets" data-record-grid></ul>
     </main>
 
     <footer class="site-footer">
       <div class="site-footer__inner">
+        <p class="site-footer__brand">Star Wars Fan Club &ndash; 2026</p>
         <p>
-          Data from
-          <a href="https://swapi.py4e.com/documentation">SWAPI, the Star Wars API</a>. The
-          illustrations are drawn for this project, because SWAPI does not serve images.
+          Data from <a href="https://swapi.py4e.com/documentation">SWAPI, the Star Wars API</a>.
+          Pictures from <a href="https://starwars.fandom.com/">Wookieepedia</a>. Star Wars and all
+          related names are trademarks of Lucasfilm Ltd. This is a non-commercial student project.
         </p>
-        <p>Assignment 1 &ndash; FFU1200 Production of Frontend Development.</p>
       </div>
     </footer>
 

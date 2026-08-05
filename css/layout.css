@@ -1,9 +1,18 @@
-/* Layout layer: page shell, header, footer and the responsive grids. */
+/* Layout layer: page shell, header, footer and the responsive grids.
+ *
+ * Written mobile first. The rules outside a media query describe a 320px
+ * screen; the `min-width` blocks at the end of each section widen the layout
+ * for tablet (48rem / 768px) and desktop (64rem / 1024px).
+ */
 
 .page {
   display: flex;
   flex-direction: column;
+  /* Fills the viewport so the footer is pushed to the bottom on short pages.
+     100dvh accounts for the collapsing address bar on mobile browsers, with
+     100vh kept above it as the fallback for browsers without dvh support. */
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .page__main {
@@ -11,7 +20,20 @@
   width: 100%;
   max-width: var(--layout-max-width);
   margin: 0 auto;
-  padding: var(--space-xl) var(--space-md);
+  /* Tight gutters on the narrowest screens; widened at the breakpoints. */
+  padding: var(--space-lg) var(--space-md);
+}
+
+@media (min-width: 48rem) {
+  .page__main {
+    padding: var(--space-xl) var(--space-lg);
+  }
+}
+
+@media (min-width: 64rem) {
+  .page__main {
+    padding: var(--space-xl);
+  }
 }
 
 /* Site header ------------------------------------------------------------ */
@@ -21,12 +43,13 @@
   background-color: var(--color-surface);
 }
 
+/* On a narrow screen the title and the navigation are stacked, which keeps
+   the navigation from being squeezed into a cramped column beside the title. */
 .site-header__inner {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-md);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
   max-width: var(--layout-max-width);
   margin: 0 auto;
   padding: var(--space-md);
@@ -34,12 +57,16 @@
 
 .site-header__title {
   margin: 0;
-  font-size: var(--font-size-title);
-  letter-spacing: 0.08em;
+  /* Smaller than the shared title size on mobile, where the site name would
+     otherwise take three lines on a 320px screen. */
+  font-size: 1.0625rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .site-header__title-link {
+  display: inline-block;
+  padding: var(--space-xs) 0;
   color: var(--color-text);
   text-decoration: none;
 }
@@ -48,19 +75,42 @@
   color: var(--color-accent);
 }
 
+@media (min-width: 48rem) {
+  /* From tablet upwards there is room for the title and the navigation to sit
+     on one row, with the navigation aligned to the opposite edge. */
+  .site-header__inner {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  .site-header__title {
+    font-size: var(--font-size-title);
+    letter-spacing: 0.08em;
+  }
+}
+
 /* Main navigation -------------------------------------------------------- */
 
 .site-nav__list {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-sm) var(--space-md);
+  /* A gap between the tap targets prevents mis-taps on touch screens. */
+  gap: var(--space-xs) var(--space-sm);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .site-nav__link {
-  display: inline-block;
+  /* Flex centring gives the link a minimum height without relying on padding
+     alone, so every navigation item is a comfortable touch target. */
+  display: flex;
+  align-items: center;
+  min-height: var(--tap-target-min);
   padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius-md);
   text-decoration: none;
@@ -76,13 +126,24 @@
   font-weight: 700;
 }
 
+@media (min-width: 48rem) {
+  .site-nav__list {
+    gap: var(--space-sm) var(--space-md);
+  }
+}
+
 /* Grids ------------------------------------------------------------------ */
+
+/* Both grids use auto-fit with a minimum track width, so the column count
+   follows the space available rather than a fixed breakpoint. The min() keeps
+   a track from ever demanding more width than the screen actually has, which
+   is what stops the grid overflowing at 320px. */
 
 /* Category grid on the front page. */
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: var(--space-lg);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: var(--space-md);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -91,11 +152,18 @@
 /* Record grid on the four category pages. */
 .record-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
-  gap: var(--space-lg);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: var(--space-md);
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+@media (min-width: 48rem) {
+  .category-grid,
+  .record-grid {
+    gap: var(--space-lg);
+  }
 }
 
 /* Site footer ------------------------------------------------------------ */
@@ -115,4 +183,10 @@
 
 .site-footer__inner p:last-child {
   margin-bottom: 0;
+}
+
+@media (min-width: 48rem) {
+  .site-footer__inner {
+    padding: var(--space-lg);
+  }
 }
