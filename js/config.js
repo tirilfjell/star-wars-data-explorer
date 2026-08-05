@@ -30,6 +30,11 @@ export const categories = {
       { label: "Characters", key: "characters", format: (value) => formatCount(value, "character") },
       { label: "Opening", key: "opening_crawl", format: (value) => formatSummary(value, 110) },
     ],
+    sortOptions: [
+      { label: "Episode order", key: "episode_id", type: "number" },
+      { label: "Title (A–Z)", key: "title", type: "text" },
+      { label: "Release date", key: "release_date", type: "date" },
+    ],
   },
 
   people: {
@@ -46,6 +51,11 @@ export const categories = {
       { label: "Gender", key: "gender", format: formatText },
       { label: "Eye colour", key: "eye_color", format: formatText },
       { label: "Hair colour", key: "hair_color", format: formatText },
+    ],
+    sortOptions: [
+      { label: "Name (A–Z)", key: "name", type: "text" },
+      { label: "Height (tallest first)", key: "height", type: "number", descending: true },
+      { label: "Mass (heaviest first)", key: "mass", type: "number", descending: true },
     ],
   },
 
@@ -64,6 +74,11 @@ export const categories = {
       { label: "Gravity", key: "gravity", format: formatText },
       { label: "Day length", key: "rotation_period", format: (value) => formatNumber(value, "hours") },
     ],
+    sortOptions: [
+      { label: "Name (A–Z)", key: "name", type: "text" },
+      { label: "Population (largest first)", key: "population", type: "number", descending: true },
+      { label: "Diameter (largest first)", key: "diameter", type: "number", descending: true },
+    ],
   },
 
   vehicles: {
@@ -80,6 +95,11 @@ export const categories = {
       { label: "Cost", key: "cost_in_credits", format: (value) => formatNumber(value, "credits") },
       { label: "Top speed", key: "max_atmosphering_speed", format: (value) => formatNumber(value, "km/h") },
       { label: "Crew", key: "crew", format: (value) => formatNumber(value) },
+    ],
+    sortOptions: [
+      { label: "Name (A–Z)", key: "name", type: "text" },
+      { label: "Top speed (fastest first)", key: "max_atmosphering_speed", type: "number", descending: true },
+      { label: "Cost (most expensive first)", key: "cost_in_credits", type: "number", descending: true },
     ],
   },
 };

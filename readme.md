@@ -18,7 +18,11 @@ six records with six properties and a picture each.
 - Six records per category, each with six properties and a picture.
 - All data is fetched at runtime with `fetch` and `async/await`. Nothing is hardcoded in the HTML.
 - Loading and error states are shown in the interface, not only in the console.
-- If the primary API host is unavailable, the app automatically retries on the documented mirror.
+- If the primary API host is unavailable, the app automatically retries on the documented mirror,
+  and the error message carries a **Try again** button so the user can retry without reloading.
+- Each category can be **sorted** on three properties of its own, for example films by episode or
+  release date and vehicles by top speed. Sorting reorders the records already fetched, so
+  changing the order never sends another request.
 - Mobile-first responsive layout built with CSS grid and flexbox, from 320px upwards.
 
 ## Running the project locally
@@ -54,6 +58,8 @@ Assignment_1/
 │   ├── recordCard.js   Builds the DOM for one record card
 │   ├── statusMessage.js Loading and error messages
 │   ├── formatters.js   Value formatting (numbers, dates, missing values)
+│   ├── sortControl.js  Builds the "Sort by" control
+│   ├── sortRecords.js  Comparison logic for the sort options
 │   └── artwork.js      Maps a record to its picture
 └── assets/
     └── img/            24 pictures, six per category, plus a placeholder

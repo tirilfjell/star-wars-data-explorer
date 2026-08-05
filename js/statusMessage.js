@@ -23,8 +23,22 @@ export function createStatusMessage(element) {
       render("Loading", `Fetching ${categoryLabel.toLowerCase()} from the Star Wars API…`, false);
     },
 
-    showError(message) {
+    showError(message, onRetry) {
       render("Something went wrong", message, true);
+
+      if (!onRetry) {
+        return;
+      }
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "button";
+      button.textContent = "Try again";
+      button.addEventListener("click", onRetry);
+      element.append(button);
+
+      // Saves a keyboard user tabbing back to the only useful control here.
+      button.focus();
     },
 
     hide() {
