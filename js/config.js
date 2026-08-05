@@ -1,10 +1,6 @@
-/**
- * Configuration for the four categories.
- *
- * Every category declares its API endpoint and the properties that are shown
- * on a card. Keeping this in one place means a category page only needs to
- * know its own key - the rest of the application is generic.
- */
+// Every category declares its API endpoint and the properties shown on a
+// card. Keeping this in one place means a page only needs to know its own
+// key, and adding a category means adding an entry here and one HTML page.
 
 import {
   formatCount,
@@ -14,7 +10,6 @@ import {
   formatText,
 } from "./formatters.js";
 
-/** Number of records rendered per category (the exam requires at least 6). */
 export const RECORDS_PER_CATEGORY = 6;
 
 export const categories = {
@@ -23,13 +18,9 @@ export const categories = {
     label: "Films",
     endpoint: "films",
     description: "Release details and credits for the Star Wars films.",
-    /** Property used as the card heading. */
     titleKey: "title",
-    /**
-     * Alternative text for the picture on the card. It names what the picture
-     * actually shows, so a screen reader user is told the same thing a sighted
-     * user sees rather than simply being given the record name again.
-     */
+    // Alternative text names what the picture shows rather than repeating the
+    // record name, which is already the card heading.
     imageAlt: (record) => `Theatrical release poster for the film ${record.title}`,
     properties: [
       { label: "Episode", key: "episode_id", format: (value) => formatNumber(value) },
@@ -93,12 +84,7 @@ export const categories = {
   },
 };
 
-/**
- * Looks up a category configuration and fails loudly on an unknown key,
- * which makes a typo in the HTML easy to spot during development.
- * @param {string} categoryKey
- * @returns {object}
- */
+// Fails loudly on an unknown key, which makes a typo in the HTML easy to spot.
 export function getCategory(categoryKey) {
   const category = categories[categoryKey];
 

@@ -1,18 +1,8 @@
-/**
- * Builds the DOM for a single record card.
- *
- * The card is created with DOM methods rather than an HTML string, so text
- * coming from the API is inserted as text and can never be parsed as markup.
- */
-
 import { getArtworkPath } from "./artwork.js";
 
-/**
- * Creates one property row (a name and its value) inside the card.
- * @param {{label: string, key: string, format: Function}} property
- * @param {object} record A record as returned by the API.
- * @returns {DocumentFragment}
- */
+// Cards are built with createElement and textContent, so text from the API is
+// inserted as text and can never be parsed as markup.
+
 function createPropertyRow(property, record) {
   const fragment = document.createDocumentFragment();
 
@@ -28,12 +18,6 @@ function createPropertyRow(property, record) {
   return fragment;
 }
 
-/**
- * Creates a complete list item holding one record card.
- * @param {object} record A record as returned by the API.
- * @param {object} category The category configuration for the record.
- * @returns {HTMLLIElement}
- */
 export function createRecordCard(record, category) {
   const recordName = record[category.titleKey];
 
@@ -46,21 +30,20 @@ export function createRecordCard(record, category) {
   const image = document.createElement("img");
   image.className = "record-card__image";
   image.src = getArtworkPath(category.key, recordName);
-  // The picture carries information the text does not, so it is given a
-  // descriptive alternative text rather than being hidden from screen readers.
   image.alt = category.imageAlt(record);
-  // Cards below the fold are only fetched once they are needed, and the
-  // intrinsic size lets the browser reserve the space in advance so the
-  // layout does not shift as the pictures arrive.
   image.loading = "lazy";
   image.decoding = "async";
+  // The intrinsic size lets the browser reserve the space in advance, so the
+  // layout does not shift as the pictures arrive.
   image.width = 640;
   image.height = 640;
-  // A picture that fails to load would otherwise leave a broken icon; the
-  // card falls back to the neutral placeholder instead.
-  image.addEventListener("error", function handleMissingImage() {
-    image.src = "assets/img/placeholder.svg";
-  }, { once: true });
+  image.addEventListener(
+    "error",
+    () => {
+      image.src = "assets/img/placeholder.svg";
+    },
+    { once: true },
+  );
 
   const body = document.createElement("div");
   body.className = "record-card__body";

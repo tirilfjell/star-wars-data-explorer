@@ -1,34 +1,23 @@
-/**
- * Entry point for the four category pages.
- *
- * Every category page loads this one module. The page tells the module which
- * category to show through the data-category attribute on the <main> element,
- * so no page needs its own script file.
- */
-
 import { ApiError, fetchRecords } from "./api.js";
 import { RECORDS_PER_CATEGORY, getCategory } from "./config.js";
 import { createRecordCard } from "./recordCard.js";
 import { createStatusMessage } from "./statusMessage.js";
 
-/**
- * Loads the records for one category and renders them into the grid.
- * @param {object} category The category configuration.
- * @param {HTMLElement} grid The list element the cards are appended to.
- * @param {object} status The status message controller.
- */
+// All four category pages load this module. Each page states which category it
+// shows through the data-category attribute on its <main> element.
+
 async function loadCategory(category, grid, status) {
   status.showLoading(category.label);
 
   // Lets the stylesheet size the picture frame to the shape this category's
-  // pictures actually have (portrait posters, square planets, wide vehicles).
+  // pictures have.
   grid.classList.add(`record-grid--${category.key}`);
 
   try {
     const records = await fetchRecords(category.endpoint, RECORDS_PER_CATEGORY);
 
-    // The cards are collected in a fragment first, so the page is only
-    // updated once instead of on every single card.
+    // Collected in a fragment so the page is updated once rather than on
+    // every card.
     const fragment = document.createDocumentFragment();
 
     records.forEach((record) => {
@@ -38,8 +27,6 @@ async function loadCategory(category, grid, status) {
     grid.replaceChildren(fragment);
     status.hide();
   } catch (error) {
-    // A known API problem gets its own message, anything else falls back to a
-    // generic one. The technical details stay in the console.
     console.error("Could not render the category:", error);
 
     status.showError(
@@ -50,7 +37,6 @@ async function loadCategory(category, grid, status) {
   }
 }
 
-/** Reads the configuration from the page and starts loading. */
 function initialise() {
   const main = document.querySelector("[data-category]");
   const grid = document.querySelector("[data-record-grid]");
